@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Protocol
+from typing import Protocol, runtime_checkable
 
 
 class StatusUrzadzenia(Enum):
@@ -26,7 +26,17 @@ class InteligentnyDom:
     def dodajUrzadzenie(self, urzadzenie: Urzadzenie):
         self.urzadzenia.append(urzadzenie)
 
+    def wyswietlStatusWszystkichUrzadzen(self) -> None:
+        for urzadzenie in self.urzadzenia:
+            print(urzadzenie.pobierzSzczegolowyOpis())
 
+    def wlaczWszystkiePrzelaczalne(self) -> None:
+        for urzadzenie in self.urzadzenia:
+            if isinstance(urzadzenie, IPrzelaczalne):
+                urzadzenie.wlacz()
+
+
+@runtime_checkable
 class IPrzelaczalne(Protocol):
     def wlacz(self) -> None:
         ...
@@ -59,3 +69,34 @@ class Lampa(Urzadzenie, IPrzelaczalne, IRegulowalne):
 
 
 class Termostat(Urzadzenie, IPrzelaczalne, IRegulowalne):
+    def __init__(self, nazwa: str, lokalizacja: str):
+        super().__init__(nazwa, lokalizacja)
+        self.temperatura: float = 20.0
+
+    def wlacz(self) -> None:
+        self.status = StatusUrzadzenia.WLACZONE
+
+    def wylacz(self) -> None:
+        self.status = StatusUrzadzenia.WYLACZONE
+
+    def ustawPoziom(self, poziom: float) -> None:
+        self.temperatura = poziom
+
+    def pobierzSzczegolowyOpis(self) -> str:
+        return f"Termostat '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, temperatura: {self.temperatura} st. C"
+
+
+class CzujnikRuchu(Urzadzenie, IPrzelaczalne):
+    def __init__(self, nazwa: str, lokalizacja: str):
+        super().__init__(nazwa, lokalizacja)
+        self.wykrytoRuch: bool = False
+
+    def wlacz(self) -> None:
+        self.status = StatusUrzadzenia.WLACZONE
+
+    def wylacz(self) -> None:
+        self.status = StatusUrzadzenia.WYLACZONE
+
+    def pobierzSzczegolowyOpis(self) -> str:
+        return f"Czujnik ruchu '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, ruch: {'wykryto' if self.wykrytoRuch else 'brak'}"
+
