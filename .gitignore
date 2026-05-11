@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.pytest_cache/
+.mypy_cache/
+.idea/
+.vscode/
+build/
+dist/
+*.egg-info/
+
+# Local organizational documents
+CHANGELOG.md
+docs/plan-projektu.md
+docs/notes/
+# Private
+Private-notes/
