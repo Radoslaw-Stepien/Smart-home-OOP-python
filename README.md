@@ -28,12 +28,6 @@ Aplikacja (GUI):
 PYTHONPATH=src python -m smart_home
 ```
 
-Testy:
-
-```bash
-PYTHONPATH=src python -m unittest discover -s tests -v
-```
-
 ## Struktura repo
 
 ```text
@@ -48,7 +42,6 @@ smart-home-oop-python/
 ├── docs/
 │   └── uml/
 │       └── diagram.md  # diagram klas (Mermaid)
-├── examples/
 ├── pyproject.toml      # metadane pakietu i zależności
 └── requirements.txt
 ```
@@ -165,7 +158,7 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 | `CzujnikRuchu`     | Urządzenie wykrywające ruch.                                       |
 | `StatusUrzadzenia` | Enum: `WLACZONE` / `WYLACZONE`.                                    |
 | `IPrzelaczalne`    | Interfejs (Protocol): `wlacz()`, `wylacz()`.                       |
-| `IRegulowane`     | Interfejs (Protocol): `ustawPoziom()`.                             |
+| `IRegulowane`      | Interfejs (Protocol): `ustawPoziom()`.                             |
 | `InteligentnyDom`  | Agreguje urządzenia. Zarządza nimi i demonstruje polimorfizm.      |
 
 ## Pokryte tematy OOP

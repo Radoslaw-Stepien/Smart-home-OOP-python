@@ -65,6 +65,7 @@ class IPrzelaczalne(Protocol):
         ...
 
 
+@runtime_checkable
 class IRegulowane(Protocol):
     def ustawPoziom(self, poziom: float) -> None:
         ...
