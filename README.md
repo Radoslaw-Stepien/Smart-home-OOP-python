@@ -14,7 +14,7 @@ source .venv/bin/activate   # Linux/Mac
 .venv\Scripts\activate      # Windows
 ```
 
-Zainstaluj zależności projektu:
+Zainstaluj zależności projektu (jedyna zewnętrzna biblioteka to `customtkinter` — nowoczesny wygląd interfejsu GUI oparty na tkinter):
 
 ```bash
 pip install -r requirements.txt
@@ -128,6 +128,30 @@ classDiagram
     InteligentnyDom "1" o-- "0..*" Urzadzenie
     Urzadzenie --> StatusUrzadzenia
 ```
+
+## Testy jednostkowe
+
+Uruchamianie:
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+| Klasa testowa         | Metoda testowa                    | Co weryfikuje                                          | Wynik |
+| --------------------- | --------------------------------- | ------------------------------------------------------ | :---: |
+| `TestLampa`           | `test_domyslny_status`            | Nowa lampa ma status `WYLACZONE`                       |  ✓   |
+| `TestLampa`           | `test_wlacz`                      | Po `wlacz()` status zmienia się na `WLACZONE`          |  ✓   |
+| `TestLampa`           | `test_wylacz`                     | Po `wylacz()` status wraca do `WYLACZONE`              |  ✓   |
+| `TestLampa`           | `test_ustaw_poziom`               | `ustawPoziom(80.0)` ustawia jasność na 80.0            |  ✓   |
+| `TestTermostat`       | `test_domyslna_temperatura`       | Nowy termostat ma domyślną temperaturę 20.0°C          |  ✓   |
+| `TestTermostat`       | `test_wlacz`                      | Po `wlacz()` status zmienia się na `WLACZONE`          |  ✓   |
+| `TestTermostat`       | `test_ustaw_poziom`               | `ustawPoziom(22.5)` ustawia temperaturę na 22.5°C      |  ✓   |
+| `TestCzujnikRuchu`    | `test_domyslny_wykryto_ruch`      | Nowy czujnik ma `wykrytoRuch = False`                  |  ✓   |
+| `TestCzujnikRuchu`    | `test_wlacz`                      | Po `wlacz()` status zmienia się na `WLACZONE`          |  ✓   |
+| `TestCzujnikRuchu`    | `test_wylacz`                     | Po `wylacz()` status wraca do `WYLACZONE`              |  ✓   |
+| `TestInteligentnyDom` | `test_dodaj_urzedzenie`           | `dodajUrzadzenie()` zwiększa listę urządzeń o 1        |  ✓   |
+| `TestInteligentnyDom` | `test_wlacz_wszystkie_przylaczalne` | `wlaczWszystkiePrzelaczalne()` włącza wszystkie urządzenia |  ✓   |
+| **Łącznie**           |                                   | **12 testów — wszystkie zaliczone (0 błędów)**         | **✓** |
 
 ## Model domenowy
 
