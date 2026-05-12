@@ -2,6 +2,14 @@
 
 Projekt zaliczeniowy z programowania obiektowego w Pythonie. System zarządzania urządzeniami w inteligentnym domu — pokazuje hierarchię klas, interfejsy, enkapsulację i polimorfizm.
 
+## Instalacja
+
+Wymagany Python 3.12+. Przed pierwszym uruchomieniem zainstaluj zależności:
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Jak uruchomić
 
 Demo:
