@@ -33,7 +33,7 @@ classDiagram
         +wylacz()
     }
 
-    class IRegulowalne {
+    class IRegulowane {
         <<interface>>
         +ustawPoziom(poziom float)
     }
@@ -70,8 +70,8 @@ classDiagram
     IPrzelaczalne <|.. Lampa
     IPrzelaczalne <|.. Termostat
     IPrzelaczalne <|.. CzujnikRuchu
-    IRegulowalne <|.. Lampa
-    IRegulowalne <|.. Termostat
+    IRegulowane <|.. Lampa
+    IRegulowane <|.. Termostat
     InteligentnyDom "1" o-- "0..*" Urzadzenie
     Urzadzenie --> StatusUrzadzenia
 ```

@@ -65,12 +65,12 @@ class IPrzelaczalne(Protocol):
         ...
 
 
-class IRegulowalne(Protocol):
+class IRegulowane(Protocol):
     def ustawPoziom(self, poziom: float) -> None:
         ...
 
 
-class Lampa(Urzadzenie, IPrzelaczalne, IRegulowalne):
+class Lampa(Urzadzenie, IPrzelaczalne, IRegulowane):
     def __init__(self, nazwa: str, lokalizacja: str):
         super().__init__(nazwa, lokalizacja)
         self.__jasnosc: float = 0.0
@@ -92,7 +92,7 @@ class Lampa(Urzadzenie, IPrzelaczalne, IRegulowalne):
         return f"Lampa '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, jasność: {self.__jasnosc}%"
 
 
-class Termostat(Urzadzenie, IPrzelaczalne, IRegulowalne):
+class Termostat(Urzadzenie, IPrzelaczalne, IRegulowane):
     def __init__(self, nazwa: str, lokalizacja: str):
         super().__init__(nazwa, lokalizacja)
         self.__temperatura: float = 20.0

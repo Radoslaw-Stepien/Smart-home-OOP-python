@@ -86,7 +86,7 @@ classDiagram
         +wylacz()
     }
 
-    class IRegulowalne {
+    class IRegulowane {
         <<interface>>
         +ustawPoziom(poziom float)
     }
@@ -123,8 +123,8 @@ classDiagram
     IPrzelaczalne <|.. Lampa
     IPrzelaczalne <|.. Termostat
     IPrzelaczalne <|.. CzujnikRuchu
-    IRegulowalne <|.. Lampa
-    IRegulowalne <|.. Termostat
+    IRegulowane <|.. Lampa
+    IRegulowane <|.. Termostat
     InteligentnyDom "1" o-- "0..*" Urzadzenie
     Urzadzenie --> StatusUrzadzenia
 ```
@@ -139,7 +139,7 @@ classDiagram
 | `CzujnikRuchu`     | Urządzenie wykrywające ruch.                                       |
 | `StatusUrzadzenia` | Enum: `WLACZONE` / `WYLACZONE`.                                    |
 | `IPrzelaczalne`    | Interfejs (Protocol): `wlacz()`, `wylacz()`.                       |
-| `IRegulowalne`     | Interfejs (Protocol): `ustawPoziom()`.                             |
+| `IRegulowane`     | Interfejs (Protocol): `ustawPoziom()`.                             |
 | `InteligentnyDom`  | Agreguje urządzenia. Zarządza nimi i demonstruje polimorfizm.      |
 
 ## Pokryte tematy OOP
@@ -148,6 +148,6 @@ classDiagram
 - enkapsulacja — prywatne pola urządzeń
 - abstrakcyjna klasa bazowa (ABC) — `Urzadzenie` wymusza implementację `pobierzSzczegolowyOpis()`
 - polimorfizm — `wyswietlStatusWszystkichUrzadzen()` wywołuje `pobierzSzczegolowyOpis()` na każdym urządzeniu
-- interfejsy (Protocol) — `IPrzelaczalne`, `IRegulowalne`
+- interfejsy (Protocol) — `IPrzelaczalne`, `IRegulowane`
 - Enum — `StatusUrzadzenia`
 - kolekcja `list` — lista urządzeń w `InteligentnyDom`
