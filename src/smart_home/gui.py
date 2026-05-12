@@ -5,6 +5,15 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 
+def interpoluj_kolor(wartosc, min_val, max_val, kolor_min, kolor_max):
+    t = max(0.0, min(1.0, (wartosc - min_val) / (max_val - min_val)))
+    r1, g1, b1 = int(kolor_min[1:3], 16), int(kolor_min[3:5], 16), int(kolor_min[5:7], 16)
+    r2, g2, b2 = int(kolor_max[1:3], 16), int(kolor_max[3:5], 16), int(kolor_max[5:7], 16)
+    r = int(r1 + (r2 - r1) * t)
+    g = int(g1 + (g2 - g1) * t)
+    b = int(b1 + (b2 - b1) * t)
+    return f"#{r:02x}{g:02x}{b:02x}"
+
 class KafelekLampa(ctk.CTkFrame):
     def __init__(self, parent, lampa: Lampa):
         super().__init__(parent, corner_radius=15, fg_color="#1e1e2e")
@@ -23,6 +32,8 @@ class KafelekLampa(ctk.CTkFrame):
 
         self.etykieta_jasnosc = ctk.CTkLabel(self, text="0%")
         self.etykieta_jasnosc.pack()
+        self.wskaznik = ctk.CTkLabel(self, text="", height=30, fg_color="#2a2a2a", corner_radius=8)
+        self.wskaznik.pack(padx=15, fill="x", pady=(5, 0))
 
         self.etykieta_status = ctk.CTkLabel(self, text="⬤ wyłączone", text_color="#ff6b6b")
         self.etykieta_status.pack(pady=(5, 15))
@@ -38,6 +49,8 @@ class KafelekLampa(ctk.CTkFrame):
     def _zmien_jasnosc(self, wartosc):
         self.lampa.ustawPoziom(round(wartosc))
         self.etykieta_jasnosc.configure(text=f"{round(wartosc)}%")
+        kolor = interpoluj_kolor(wartosc, 0, 100, "#2a2a2a", "#ffff66")
+        self.wskaznik.configure(fg_color=kolor)
 
 
 class KafelekTermostat(ctk.CTkFrame):
@@ -57,6 +70,8 @@ class KafelekTermostat(ctk.CTkFrame):
         self.suwak.pack(padx=15, fill="x")
         self.etykieta_temp = ctk.CTkLabel(self, text="20.0 st. C")
         self.etykieta_temp.pack()
+        self.wskaznik = ctk.CTkLabel(self, text="", height=30, fg_color="#4fc3f7", corner_radius=8)
+        self.wskaznik.pack(padx=15, fill="x", pady=(5, 0))
 
         self.etykieta_status = ctk.CTkLabel(self, text="⬤ wyłączone", text_color="#ff6b6b")
         self.etykieta_status.pack(pady=(5,15))
@@ -72,6 +87,8 @@ class KafelekTermostat(ctk.CTkFrame):
     def _zmien_temperature(self, wartosc):
         self.termostat.ustawPoziom(round(wartosc, 1))
         self.etykieta_temp.configure(text=f"{round(wartosc, 1)} st. C")
+        kolor = interpoluj_kolor(wartosc, 15, 30, "#4fc3f7", "#ff5722")
+        self.wskaznik.configure(fg_color=kolor)
 
 
 class KafelekCzujnik(ctk.CTkFrame):

@@ -4,7 +4,23 @@ Projekt zaliczeniowy z programowania obiektowego w Pythonie. System zarządzania
 
 ## Instalacja
 
-Wymagany Python 3.12+. Przed pierwszym uruchomieniem zainstaluj zależności:
+Wymagany Python 3.12+.
+
+Na Fedorze/RHEL przed instalacją zależności upewnij się że tkinter jest dostępny:
+
+```bash
+sudo dnf install python3-tkinter
+```
+
+Na Ubuntu/Debian:
+
+```bash
+sudo apt install python3-tk
+```
+
+Na Windows tkinter jest wbudowany w standardowy instalator Pythona — nie wymaga dodatkowych kroków.
+
+Następnie zainstaluj zależności projektu:
 
 ```bash
 pip install -r requirements.txt

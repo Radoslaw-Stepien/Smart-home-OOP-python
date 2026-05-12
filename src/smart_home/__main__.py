@@ -1,22 +1,12 @@
 from smart_home.domain import InteligentnyDom, Lampa, Termostat, CzujnikRuchu
+from smart_home.gui import AplikacjaDom
 
 if __name__ == "__main__":
     dom = InteligentnyDom()
+    dom.dodajUrzadzenie(Lampa("Lampa sufitowa", "Salon"))
+    dom.dodajUrzadzenie(Termostat("Termostat główny", "Korytarz"))
+    dom.dodajUrzadzenie(CzujnikRuchu("Czujnik wejście", "Przedpokój"))
 
-    lampa = Lampa("Lampa sufitowa", "Salon")
-    termostat = Termostat("Termostat główny", "Korytarz")
-    czujnik = CzujnikRuchu("Czujnik wejście", "Przedpokój")
 
-    dom.dodajUrzadzenie(lampa)
-    dom.dodajUrzadzenie(termostat)
-    dom.dodajUrzadzenie(czujnik)
-
-    print("=== Status przed włączeniem ===")
-    dom.wyswietlStatusWszystkichUrzadzen()
-
-    dom.wlaczWszystkiePrzelaczalne()
-    lampa.ustawPoziom(75.0)
-    termostat.ustawPoziom(22.5)
-
-    print("\n=== Status po włączeniu ===")
-    dom.wyswietlStatusWszystkichUrzadzen()
+    app = AplikacjaDom(dom)
+    app.mainloop()
