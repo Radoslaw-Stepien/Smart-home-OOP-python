@@ -10,9 +10,25 @@ class StatusUrzadzenia(Enum):
 
 class Urzadzenie(ABC):
     def __init__(self, nazwa: str, lokalizacja: str):
-        self.nazwa = nazwa
-        self.lokalizacja = lokalizacja
-        self.status = StatusUrzadzenia.WYLACZONE
+        self.__nazwa = nazwa
+        self.__lokalizacja = lokalizacja
+        self.__status = StatusUrzadzenia.WYLACZONE
+
+    @property
+    def nazwa(self) -> str:
+        return self.__nazwa
+
+    @property
+    def lokalizacja(self) -> str:
+        return self.__lokalizacja
+
+    @property
+    def status(self) -> StatusUrzadzenia:
+        return self.__status
+
+    @status.setter
+    def status(self, wartosc: StatusUrzadzenia) -> None:
+        self.__status = wartosc
 
     @abstractmethod
     def pobierzSzczegolowyOpis(self) -> str:
@@ -21,17 +37,21 @@ class Urzadzenie(ABC):
 
 class InteligentnyDom:
     def __init__(self):
-        self.urzadzenia: list = []
+        self.__urzadzenia: list = []
+
+    @property
+    def urzadzenia(self) -> list:
+        return self.__urzadzenia
 
     def dodajUrzadzenie(self, urzadzenie: Urzadzenie):
-        self.urzadzenia.append(urzadzenie)
+        self.__urzadzenia.append(urzadzenie)
 
     def wyswietlStatusWszystkichUrzadzen(self) -> None:
-        for urzadzenie in self.urzadzenia:
+        for urzadzenie in self.__urzadzenia:
             print(urzadzenie.pobierzSzczegolowyOpis())
 
     def wlaczWszystkiePrzelaczalne(self) -> None:
-        for urzadzenie in self.urzadzenia:
+        for urzadzenie in self.__urzadzenia:
             if isinstance(urzadzenie, IPrzelaczalne):
                 urzadzenie.wlacz()
 
@@ -53,7 +73,11 @@ class IRegulowalne(Protocol):
 class Lampa(Urzadzenie, IPrzelaczalne, IRegulowalne):
     def __init__(self, nazwa: str, lokalizacja: str):
         super().__init__(nazwa, lokalizacja)
-        self.jasnosc: float = 0.0
+        self.__jasnosc: float = 0.0
+
+    @property
+    def jasnosc(self) -> float:
+        return self.__jasnosc
 
     def wlacz(self) -> None:
         self.status = StatusUrzadzenia.WLACZONE
@@ -62,16 +86,20 @@ class Lampa(Urzadzenie, IPrzelaczalne, IRegulowalne):
         self.status = StatusUrzadzenia.WYLACZONE
 
     def ustawPoziom(self, poziom: float) -> None:
-        self.jasnosc = poziom
+        self.__jasnosc = poziom
 
     def pobierzSzczegolowyOpis(self) -> str:
-        return f"Lampa '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, jasność: {self.jasnosc}%"
+        return f"Lampa '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, jasność: {self.__jasnosc}%"
 
 
 class Termostat(Urzadzenie, IPrzelaczalne, IRegulowalne):
     def __init__(self, nazwa: str, lokalizacja: str):
         super().__init__(nazwa, lokalizacja)
-        self.temperatura: float = 20.0
+        self.__temperatura: float = 20.0
+
+    @property
+    def temperatura(self) -> float:
+        return self.__temperatura
 
     def wlacz(self) -> None:
         self.status = StatusUrzadzenia.WLACZONE
@@ -80,16 +108,24 @@ class Termostat(Urzadzenie, IPrzelaczalne, IRegulowalne):
         self.status = StatusUrzadzenia.WYLACZONE
 
     def ustawPoziom(self, poziom: float) -> None:
-        self.temperatura = poziom
+        self.__temperatura = poziom
 
     def pobierzSzczegolowyOpis(self) -> str:
-        return f"Termostat '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, temperatura: {self.temperatura} st. C"
+        return f"Termostat '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, temperatura: {self.__temperatura} st. C"
 
 
 class CzujnikRuchu(Urzadzenie, IPrzelaczalne):
     def __init__(self, nazwa: str, lokalizacja: str):
         super().__init__(nazwa, lokalizacja)
-        self.wykrytoRuch: bool = False
+        self.__wykrytoRuch: bool = False
+
+    @property
+    def wykrytoRuch(self) -> bool:
+        return self.__wykrytoRuch
+
+    @wykrytoRuch.setter
+    def wykrytoRuch(self, wartosc: bool) -> None:
+        self.__wykrytoRuch = wartosc
 
     def wlacz(self) -> None:
         self.status = StatusUrzadzenia.WLACZONE
@@ -98,5 +134,4 @@ class CzujnikRuchu(Urzadzenie, IPrzelaczalne):
         self.status = StatusUrzadzenia.WYLACZONE
 
     def pobierzSzczegolowyOpis(self) -> str:
-        return f"Czujnik ruchu '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, ruch: {'wykryto' if self.wykrytoRuch else 'brak'}"
-
+        return f"Czujnik ruchu '{self.nazwa}' [{self.lokalizacja}] - status: {self.status.value}, ruch: {'wykryto' if self.__wykrytoRuch else 'brak'}"
