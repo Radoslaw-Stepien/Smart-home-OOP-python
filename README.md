@@ -48,7 +48,9 @@ smart-home-oop-python/
 ├── docs/
 │   └── uml/
 │       └── diagram.md  # diagram klas (Mermaid)
-└── examples/
+├── examples/
+├── pyproject.toml      # metadane pakietu i zależności
+└── requirements.txt
 ```
 
 ## Diagram klas
