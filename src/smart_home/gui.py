@@ -19,7 +19,7 @@ class KafelekLampa(ctk.CTkFrame):
         super().__init__(parent, corner_radius=15, fg_color="#1e1e2e")
         self.lampa = lampa
 
-        ctk.CTkLabel(self, text="💡 " + lampa.nazwa, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15, 2))
+        ctk.CTkLabel(self, text="💡 " + lampa.nazwaPrzyjazna, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15, 2))
         ctk.CTkLabel(self, text=lampa.lokalizacja, text_color="gray").pack(padx=15)
 
         self.przelacznik = ctk.CTkSwitch(self, text="", command=self._przelacz)
@@ -58,7 +58,7 @@ class KafelekTermostat(ctk.CTkFrame):
         super().__init__(parent, corner_radius=15, fg_color="#1e1e2e")
         self.termostat = termostat
 
-        ctk.CTkLabel(self, text="🌡️ " + termostat.nazwa, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15,2))
+        ctk.CTkLabel(self, text="🌡️ " + termostat.nazwaPrzyjazna, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15,2))
         ctk.CTkLabel(self, text=termostat.lokalizacja, text_color="gray").pack(padx=15)
 
         self.przelacznik = ctk.CTkSwitch(self, text="", command=self._przelacz)
@@ -96,7 +96,7 @@ class KafelekCzujnik(ctk.CTkFrame):
         super().__init__(parent, corner_radius=15, fg_color="#1e1e2e")
         self.czujnik = czujnik
 
-        ctk.CTkLabel(self, text="🚶 " + czujnik.nazwa, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15, 2))
+        ctk.CTkLabel(self, text="🚶 " + czujnik.nazwaPrzyjazna, font=ctk.CTkFont(size=16, weight="bold")).pack(padx=15, pady=(15, 2))
         ctk.CTkLabel(self, text=czujnik.lokalizacja, text_color="gray").pack(padx=15)
 
         self.przelacznik = ctk.CTkSwitch(self, text="", command=self._przelacz)
