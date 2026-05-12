@@ -41,7 +41,7 @@ smart-home-oop-python/
 ├── src/smart_home/
 │   ├── domain.py       # wszystkie klasy domenowe
 │   ├── gui.py          # interfejs graficzny (customtkinter)
-│   ├── __init__.py     # publiczny interfejs pakietu
+│   ├── __init__.py     # oznacza katalog jako pakiet Pythona
 │   └── __main__.py     # entry point
 ├── tests/
 │   └── test_smart_home.py
